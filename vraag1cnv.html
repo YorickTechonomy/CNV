@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2487.5">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="nl"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Google Spreadsheet Data Weergeven&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Laad de Google Charts API --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="text/javascript"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Laad de benodigde visualisatiepakket</p>
+<p class="p1"><span class="Apple-converted-space">        </span>google.charts.load('current', {'packages':['table']});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Wanneer de API is geladen, roep de functie drawTable() aan</p>
+<p class="p1"><span class="Apple-converted-space">        </span>google.charts.setOnLoadCallback(drawTable);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function drawTable() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Maak een query naar de Google Spreadsheet</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var query = new google.visualization.Query(</p>
+<p class="p1"><span class="Apple-converted-space">                </span>'https://docs.google.com/spreadsheets/d/1MBXz_WnQ38-0MWXIef1pUZ1lTUvynUnNZOdosXkTcDY/gviz/tq?gid=1525579811&amp;range=B3:C5');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Verstuur de query en roep de response handler aan</p>
+<p class="p1"><span class="Apple-converted-space">            </span>query.send(handleQueryResponse);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function handleQueryResponse(response) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Controleer op fouten in de respons</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (response.isError()) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>alert('Fout bij het ophalen van gegevens: ' + response.getMessage());</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Verkrijg de gegevens als een DataTable</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var data = response.getDataTable();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Maak een nieuwe tabel en teken de gegevens in het element met id="table_div"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var table = new google.visualization.Table(document.getElementById('table_div'));</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Teken de tabel met gewenste opties</p>
+<p class="p1"><span class="Apple-converted-space">            </span>table.draw(data, {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showRowNumber: true, <span class="Apple-converted-space">  </span>// Toon rij-nummers</p>
+<p class="p1"><span class="Apple-converted-space">                </span>width: '400px',<span class="Apple-converted-space">        </span>// Breedte van de tabel</p>
+<p class="p1"><span class="Apple-converted-space">                </span>height: 'auto' <span class="Apple-converted-space">        </span>// Automatische hoogte</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Gegevens van Google Spreadsheet&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Div waarin de tabel wordt getekend --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="table_div"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
